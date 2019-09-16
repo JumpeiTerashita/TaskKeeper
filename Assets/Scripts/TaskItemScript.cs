@@ -13,6 +13,9 @@ public class TaskItemScript : MonoBehaviour
     public Text taskText = null;
 
     [SerializeField]
+    public int createdDate;
+
+    [SerializeField]
     public int totalSecond = 0;
 
     [SerializeField]
@@ -25,20 +28,19 @@ public class TaskItemScript : MonoBehaviour
     private int minute;
     private float second;
 
-
+    public void Setup(TaskItemStruct _item)
+    {
+        createdDate = _item.createdDate;
+        totalSecond = _item.totalSecond;
+        taskName = _item.taskName;
+        isRunning = _item.isRunning;
+        Init();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        taskText.text = taskName;
-
-        int tmp = totalSecond;
-        hour = tmp / 3600;
-        tmp = tmp % 3600;
-        minute = tmp / 60;
-        second = tmp % 60;
-
-        UpdateDispStr();
+        Init();
     }
 
     // Update is called once per frame
@@ -66,6 +68,20 @@ public class TaskItemScript : MonoBehaviour
         }
 
        
+    }
+
+    public void Init()
+    {
+        taskText.text = taskName;
+
+        int tmp = totalSecond;
+        hour = tmp / 3600;
+        tmp = tmp % 3600;
+        minute = tmp / 60;
+        second = tmp % 60;
+
+        UpdateDispStr();
+
     }
 
     private void UpdateDispStr()
